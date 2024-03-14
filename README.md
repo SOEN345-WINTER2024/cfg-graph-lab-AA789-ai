@@ -6,7 +6,7 @@
 
 #### Step 1: Draw CFG Graph
 
-![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/0476aae2-a8f8-4c47-afb4-ce72e2318703)
+![image](https://github.com/SOEN345-WINTER2024/cfg-graph-lab-AA789-ai/assets/97749196/5f7a3c5a-0445-4277-9a81-845b3eedbbf7)
 
 
 #### Step 2: Compute Node coverage for the CFG
@@ -100,18 +100,21 @@ Test Paths:
 
 
 ### Step 5: Draw an EFG of the app
-![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/8fb6adb2-f276-4f4d-9029-7b76270e1b07)
+![image](https://github.com/SOEN345-WINTER2024/cfg-graph-lab-AA789-ai/assets/97749196/f8abe9e2-7072-4f67-a4f1-c01f5963b9ad)
+
 
 
 
 ### Kiss App
 
 java->fr.neamar.kiss->Utils->PickAppWidgetActivity: onCreate()->onClickListener
-![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/ad0821a8-9581-4fcd-b5da-6f7666c7f900)
+![image](https://github.com/SOEN345-WINTER2024/cfg-graph-lab-AA789-ai/assets/97749196/0b46290f-e27c-427e-a1e2-a4e6c5545c5e)
+
 
 
 #### Step 1: Draw CFG Graph
-![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/d87304aa-e1d3-43bd-bf4b-efe30cc51cec)
+![image](https://github.com/SOEN345-WINTER2024/cfg-graph-lab-AA789-ai/assets/97749196/dfc2f329-2b39-45d5-959a-2dbad0c405a2)
+
 
 
 #### Step 2: Compute Node coverage for the CFG
@@ -163,5 +166,6 @@ Test Paths: <br>
 
 
 ### Step 5: Draw an EFG of the app
-![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/eb43407a-1024-43ea-bc70-e20119ff6e6e)
+![image](https://github.com/SOEN345-WINTER2024/cfg-graph-lab-AA789-ai/assets/97749196/5a0a2155-15c6-462b-975d-23a6a7d17f76)
+
 
