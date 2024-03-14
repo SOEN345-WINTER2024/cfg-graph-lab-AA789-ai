@@ -1,105 +1,167 @@
-# Soot Tutorial
-[![Build Status](https://travis-ci.com/noidsirius/SootTutorial.svg?branch=master)](https://travis-ci.com/noidsirius/SootTutorial)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/noidsirius/SootTutorial)
-[![Docker Pull](https://img.shields.io/docker/pulls/noidsirius/soot_tutorial)](https://hub.docker.com/r/noidsirius/soot_tutorial)
+# Soen-345-lab7
+
+## Abdullah Amir - 40215286
+
+### Calculator App
+
+#### Step 1: Draw CFG Graph
+
+![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/0476aae2-a8f8-4c47-afb4-ce72e2318703)
 
 
-This repository contains (will contain) several simple examples of static program analysis in Java using [Soot](https://github.com/Sable/soot).
+#### Step 2: Compute Node coverage for the CFG
 
-## Who this tutorial is for?
-Anybody who knows Java programming and wants to do some static analysis in practice but does not know anything about Soot and static analysis in theory.
+TRs = {s, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, e} <br>
 
-If you have some prior knowledge about static program analysis I suggest you learn Soot from [here](https://github.com/Sable/soot/wiki/Tutorials).
-
-### [Why another tutorial for Soot?](docs/Other/Motivation.md)
-
-## Setup
-In short, use Java 8 and run `./gradlew build`. For more information and Docker setup, follow this [link](docs/Setup/). 
-
-## Chapters
-### 1: Get your hands dirty
-
-In this chapter, you will visit a very simple code example to be familiar with Soot essential data structures and **Jimple**, Soot's principle intermediate representation.
-
-* `./gradlew run --args="HelloSoot"`: The Jimple representation of the [printFizzBuzz](demo/HelloSoot/FizzBuzz.java) method alongside the branch statement.
-* `./gradlew run --args="HelloSoot draw"`: The visualization of the [printFizzBuzz](demo/HelloSoot/FizzBuzz.java) control-flow graph.
-
-
-
-|Title |Tutorial | Soot Code        | Example Input  |
-| :---: |:-------------: |:-------------:| :-----:|
-|Hello Soot |[Doc](docs/1/)      | [HelloSoot.java](src/main/java/dev/navids/soottutorial/hellosoot/HelloSoot.java) | [FizzBuzz.java](demo/HelloSoot/FizzBuzz.java) |
-
-<img src="docs/1/images/cfg.png" alt="Control Flow Graph" width="400"/>
-
-### 2: Know the basic APIs
-
-In this chapter, you get familiar with some basic but useful methods in Soot to help read, analyze, and even update java code.
-
-* `./gradlew run --args="BasicAPI"`: Analyze the class [Circle](demo/BasicAPI/Circle.java).
-* `./gradlew run --args="BasicAPI draw"`: Analyze the class [Circle](demo/BasicAPI/Circle.java) and draws the call graph.
-
-|Title |Tutorial | Soot Code        | Example Input  |
-| :---: |:-------------: |:-------------:| :-----:|
-|Basic API |[Doc](https://medium.com/@noidsirius/know-the-basic-tools-in-soot-18f394318a9c)| [BasicAPI.java](src/main/java/dev/navids/soottutorial/basicapi/BasicAPI.java) | [Circle](demo/BasicAPI/Circle.java) |
-
-
-<img src="docs/2/images/callgraph.png" alt="Call Graph" width="400"/>
-
-### 3: Android Instrumentation
-
-In this chapter, you learn how to insert code into Android apps (without having their source code) using Soot. To run the code, you need Android SDK (check this [link](docs/Setup/)).
-
-* `./gradlew run --args="AndroidLogger"`: Insert logging method calls at the beginning of APK methods of [Numix Calculator](demo/Android/calc.apk).
-* `./gradlew run --args="AndroidClassInjector"`: Create a new class from scratch and inject it to the  [Numix Calculator](demo/Android/calc.apk).
-
-The instrumented APK is located in `demo/Android/Instrumented`. You need to sign it in order to install on an Android device:
-```sh
-cd ./demo/Android
-# on Windows, replace 'sign.sh' by 'sign.ps1'
-./sign.sh Instrumented/calc.apk key "android"
-adb install -r -t Instrumented/calc.apk
-```
-To see the logs, run `adb logcat | grep -e "<SOOT_TUTORIAL>"`
-
-|Title |Tutorial | Soot Code        | Example APK|
-| :---: |:-------------: |:-------------:| :-----:|
-|Log method calls in an APK| [Doc](https://medium.com/@noidsirius/instrumenting-android-apps-with-soot-dd6f146ff4d2)| [AndroidLogger.java](src/main/java/dev/navids/soottutorial/android/AndroidLogger.java) | [Numix Calculator](demo/Android/calc.apk) (from [F-Droid](https://f-droid.org/en/packages/com.numix.calculator/))|
-|Create and inject a class into an APK| [Doc](https://medium.com/@noidsirius/instrumenting-android-apps-with-soot-dd6f146ff4d2) | [AndroidClassInjector.java](src/main/java/dev/navids/soottutorial/android/AndroidClassInjector.java) | [Numix Calculator](demo/Android/calc.apk) (from [F-Droid](https://f-droid.org/en/packages/com.numix.calculator/))|
-
-<img src="docs/3/images/packs.png" alt="Soot Packs + Dexpler" width="400"/>
-
-### 4: Call graphs and PointsTo Analysis in Android
-
-This chapter gives you a brief overview o call graphs and PointsTo analysis in Android and you learn how to create calls graphs using FlowDroid. The source code of the example code is [here](demo/Android/STDemoApp). To run the code, you need Android SDK (check this [link](docs/Setup/)).
-
-* `./gradlew run --args="AndroidCallGraph <CG_Algorithm> (draw)"`: Create the call graph of [SootTutorial Demo App](demo/Android/st_demo.apk) using `<CG_Algorithm>` algorithm and print information such as reachable methods or the number of edges.
-    * `<CG_Algorithm>` can be `SPARK` or `CHA`
-    * `draw` argument is optional, if provided a visualization of call graph will shown.
-    * For example, `./gradlew run --args="AndroidCallGraph SPARK draw"` visualizes the call graph generated by SPARK algorithm.
-* `./gradlew run --args="AndroidPTA"`: Perform PointsTo and Alias Analysis on [SootTutorial Demo App](demo/Android/st_demo.apk) using FlowDroid.
-
-|Title |Tutorial | Soot Code        | Example APK|
-| :---: |:-------------: |:-------------:| :-----:|
-|Call graphs in Android| [Doc](https://medium.com/geekculture/generating-call-graphs-in-android-using-flowdroid-pointsto-analysis-7b2e296e6697)| [AndroidCallgraph.java](src/main/java/dev/navids/soottutorial/android/AndroidCallgraph.java) | [SootTutorial Demo App](demo/Android/st_demo.apk) ([source code](demo/Android/STDemoApp))|
-|PointsTo Analysis in Android| [Doc](https://medium.com/geekculture/generating-call-graphs-in-android-using-flowdroid-pointsto-analysis-7b2e296e6697)| [AndroidPointsToAnalysis.java](src/main/java/dev/navids/soottutorial/android/AndroidPointsToAnalysis.java) | [SootTutorial Demo App](demo/Android/st_demo.apk) ([source code](demo/Android/STDemoApp))|
-
-<img src="docs/4/images/Spark_CG.png" alt="The call graph of SootTutorial Demo app" width="400"/>
+Test Paths: <br>
+[s,0,e] <br>
+[s,1,e] <br>
+[s,2,e] <br>
+[s,3,e] <br>
+[s,4,e] <br>
+[s,5,e] <br>
+[s,6,e] <br>
+[s,7,e] <br>
+[s,8,e] <br>
+[s,9,e] <br>
+[s,10,e] <br>
+[s,11,e] <br>
+[s,12,e] <br>
+[s,13,e] <br>
+[s,14,e] <br>
+[s,15,16,20,e] <br>
+[s,15,17,20,e] <br>
+[s,15,18,20,e] <br>
+[s,15,19,20,e] <br>
 
 
 
-### 5: Some *Real* Static Analysis (:construction: WIP)
+#### Step 3: Compute Edge Coverage for the CFG
 
-* `./gradlew run --args="UsageFinder 'void println(java.lang.String)' 'java.io.PrintStream"`: Find usages of the method with the given subsignature in all methods of [UsageExample.java](demo/IntraAnalysis/UsageExample.java).
-* `./gradlew run --args="UsageFinder 'void println(java.lang.String)' 'java.io.PrintStream"`: Find usages of the method with the given subsignature of the given class signature in all methods of [UsageExample.java](demo/IntraAnalysis/UsageExample.java).
+TRs = { <br>
+(s, 0), (s, 1), (s, 2), (s, 3), (s, 4), (s, 5), (s, 6), (s, 7), (s, 8), (s, 9), (s, 10), (s, 11), (s, 12), (s, 13), (s, 14), (s, 15) <br>
+(0, e), (1, e), (2, e), (3, e), (4, e), (5, e), (6, e), (7, e), (8, e), (9, e), (10, e), (11, e), (12, e), (13, e), (14, e), (20, e) <br>
+(15, 16), (15, 17), (15, 18), (15, 19), <br>
+(16, 20), (17, 20), (18, 20), (19, 20) <br>
+}<br>
 
 
-|Title |Tutorial | Soot Code        | Example Input  |
-| :---: |:-------------: |:-------------:| :-----:|
-|Find usages of a method| | [UsageFinder.java](src/main/java/dev/navids/soottutorial/intraanalysis/usagefinder/UsageFinder.java) | [UsageExample.java](demo/IntraAnalysis/usagefinder/UsageExample.java) |
-|Null Pointer Analysis ||[NullPointerAnalysis](src/main/java/dev/navids/soottutorial/intraanalysis/npanalysis/) | [NullPointerExample.java](demo/IntraAnalysis/NullPointerExample.java) |
+Test Paths:
+[s,0,e] <br>
+[s,1,e] <br>
+[s,2,e] <br>
+[s,3,e] <br>
+[s,4,e] <br>
+[s,5,e] <br>
+[s,6,e] <br>
+[s,7,e] <br>
+[s,8,e] <br>
+[s,9,e] <br>
+[s,10,e] <br>
+[s,11,e] <br>
+[s,12,e] <br>
+[s,13,e] <br>
+[s,14,e] <br>
+[s,15,16,20,e] <br>
+[s,15,17,20,e] <br>
+[s,15,18,20,e] <br>
+[s,15,19,20,e] <br>
 
-### 6: Interprocedural analysis (:construction: WIP)
-|Title |Tutorial | Soot Code        | Example Input  |
-| :---: |:-------------: |:-------------:| :-----:|
-| | | | |
+#### Step 4: Compute Edge-Pair coverage for the CFG
+
+TRs = { <br>
+[s,0,e], [s,1,e], [s,2,e], [s,3,e], [s,4,e], [s,5,e], [s,6,e], [s,7,e], [s,8,e], [s,9,e], [s,10,e], [s,11,e], [s,12,e], [s,13,e], <br>
+[s,14,15], [s,14,16], [s,14,17], [s,14,18], <br>
+[14,15,19], [14,16,19], [14,17,19], [14,18,19], <br>
+[15,19,e], [16,19,e], [17,19,e], [18,19,e] <br>
+} <br>
+
+Test Paths:
+
+[s,0,e] <br>
+[s,1,e] <br>
+[s,2,e] <br>
+[s,3,e] <br>
+[s,4,e] <br>
+[s,5,e] <br>
+[s,6,e] <br>
+[s,7,e] <br>
+[s,8,e] <br>
+[s,9,e] <br>
+[s,10,e] <br>
+[s,11,e] <br>
+[s,12,e] <br>
+[s,13,e] <br>
+[s,14,e] <br>
+[s,15,16,20,e] <br>
+[s,15,17,20,e] <br>
+[s,15,18,20,e] <br>
+[s,15,19,20,e] <br>
+
+
+### Step 5: Draw an EFG of the app
+![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/8fb6adb2-f276-4f4d-9029-7b76270e1b07)
+
+
+
+### Kiss App
+
+java->fr.neamar.kiss->Utils->PickAppWidgetActivity: onCreate()->onClickListener
+![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/ad0821a8-9581-4fcd-b5da-6f7666c7f900)
+
+
+#### Step 1: Draw CFG Graph
+![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/d87304aa-e1d3-43bd-bf4b-efe30cc51cec)
+
+
+#### Step 2: Compute Node coverage for the CFG
+TRs = {s, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, e}
+Test Paths :
+[s,1,2,3,4,13,e] <br>
+[s,2,4,5,6,8,10,12,e] <br>
+[s,2,4,5,7,8,10,12,e] <br>
+[s,2,4,5,8,9,10,11,12,e] <br>
+
+#### Step 3: Compute Edge Coverage for the CFG
+TRs = {(s, 1), (s,2), (1,2), (2,3), (2,4), (4,5), (4,13), (5,6), (5,7), (5,8), (6,8), (7,8), (8,9), (8,10), (9,10), (10,11), (10,12), (11,12), (12,e), (13,e)} <br>
+
+Test Paths :
+[s,1,2,3,4,13,e] <br>
+[s,2,4,5,6,8,10,12,e] <br>
+[s,2,4,5,7,8,10,12,e] <br>
+[s,2,4,5,8,9,10,11,12,e] <br>
+
+
+
+#### Step 4: Compute Edge-Pair coverage for the CFG
+TRs = {[s,1,2], [s,2,4], [s,2,3], <br>
+[1,2,3], [1,2,4], <br> 
+[2,3,4], [2,4,5], [2,4,13], <br>
+[3,4,5], [3,4,13], <br>
+[4,13,e], [4,5,6], [4,5,7], [4,5,8], <br>
+[5,6,8], [5,7,8], [5,8,9], [5,8,10], <br>
+[6,8,9], [6,8,10], <br>
+[7,8,9], [7,8,10], <br>
+[8,9,10], [8,10,11], [8,10,12], <br>
+[9,10,11], [9,10,12], <br>
+[10,11,12], [10,12,e], <br>
+[11,12,e] <br>
+} <br>
+
+Test Paths: <br>
+[s,1,2,4,13,e] <br>
+[s,1,2,3,4,13,e] <br>
+[s,2,4,5,6,8,10,12,e] <br>
+[s,2,3,4,5,7,8,10,12,e] <br>
+[s,2,4,5,8,9,10,11,12,e] <br>
+[s,2,4,5,8,10,12,e] <br>
+[s,2,4,5,6,8,9,10,12,e] <br>
+[s,2,4,5,6,8,10,12,e] <br>
+[s,2,4,5,7,8,9,10,12,e] <br>
+[s,2,4,5,7,8,10,12,e] <br>
+[s,2,4,5,7,8,10,11,12,e] <br>
+
+
+### Step 5: Draw an EFG of the app
+![image](https://github.com/AA789-ai/Soen-345-lab7/assets/97749196/eb43407a-1024-43ea-bc70-e20119ff6e6e)
+
